@@ -21,7 +21,7 @@ export default class Ui {
       wrapper: make('div', [this.CSS.baseClass, this.CSS.wrapper]),
       imageContainer: make('div', [ this.CSS.imageContainer ]),
       fileButton: this.createFileButton(),
-      imageEl: undefined,
+      videoEl: undefined,
       imagePreloader: make('div', this.CSS.imagePreloader),
       caption: make('div', [this.CSS.input, this.CSS.caption], {
         contentEditable: true,
@@ -60,11 +60,11 @@ export default class Ui {
       /**
        * Tool's classes
        */
-      wrapper: 'image-tool',
-      imageContainer: 'image-tool__image',
-      imagePreloader: 'image-tool__image-preloader',
-      imageEl: 'image-tool__image-picture',
-      caption: 'image-tool__caption',
+      wrapper: 'video-tool',
+      imageContainer: 'video-tool__video',
+      imagePreloader: 'video-tool__video-preloader',
+      videoEl: 'video-tool__video-video',
+      caption: 'video-tool__caption',
     };
   };
 
@@ -108,7 +108,7 @@ export default class Ui {
   createFileButton() {
     const button = make('div', [ this.CSS.button ]);
 
-    button.innerHTML = this.config.buttonContent || `${buttonIcon} ${this.api.i18n.t('Select an Image')}`;
+    button.innerHTML = this.config.buttonContent || `${buttonIcon} ${'Select a Video'}`;
 
     button.addEventListener('click', () => {
       this.onSelectFile();
@@ -149,7 +149,7 @@ export default class Ui {
     /**
      * Check for a source extension to compose element correctly: video tag for mp4, img — for others
      */
-    const tag = /\.mp4$/.test(url) ? 'VIDEO' : 'IMG';
+    const tag = 'VIDEO';
 
     const attributes = {
       src: url,
@@ -173,7 +173,7 @@ export default class Ui {
        *
        * @type {boolean}
        */
-      attributes.autoplay = true;
+      attributes.autoplay = false;
       attributes.loop = true;
       attributes.muted = true;
       attributes.playsinline = true;
@@ -191,12 +191,12 @@ export default class Ui {
      *
      * @type {Element}
      */
-    this.nodes.imageEl = make(tag, this.CSS.imageEl, attributes);
+    this.nodes.videoEl = make(tag, this.CSS.videoEl, attributes);
 
     /**
      * Add load event listener
      */
-    this.nodes.imageEl.addEventListener(eventName, () => {
+    this.nodes.videoEl.addEventListener(eventName, () => {
       this.toggleStatus(Ui.status.FILLED);
 
       /**
@@ -207,7 +207,7 @@ export default class Ui {
       }
     });
 
-    this.nodes.imageContainer.appendChild(this.nodes.imageEl);
+    this.nodes.imageContainer.appendChild(this.nodes.videoEl);
   }
 
   /**

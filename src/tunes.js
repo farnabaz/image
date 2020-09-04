@@ -54,7 +54,7 @@ export default class Tunes {
     return {
       wrapper: '',
       buttonBase: this.api.styles.settingsButton,
-      button: 'image-tool__tune',
+      button: 'video-tool__tune',
       buttonActive: this.api.styles.settingsButtonActive,
     };
   }
